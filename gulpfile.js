@@ -46,6 +46,7 @@ gulp.task('watch', function(){
  gulp.watch('src/css/*.css', ['css']);
   gulp.watch('src/views/css/*.css', ['css']);
   gulp.watch('src/*.html', browserSync.reload);
+  gulp.watch('src/views/*.html', browserSync.reload);
   gulp.watch('src/js/*.js', browserSync.reload);
   // Other watchers
 })
