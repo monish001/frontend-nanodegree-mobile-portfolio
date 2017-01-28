@@ -43,6 +43,7 @@ gulp.task('watch', function(){
  gulp.watch('src/css/*.css', ['css']);
   gulp.watch('src/views/css/*.css', ['css']);
   gulp.watch('src/*.html', browserSync.reload);
+  gulp.watch('src/views/*.html', browserSync.reload);
   gulp.watch('src/js/*.js', browserSync.reload);
   // Other watchers
 })
@@ -56,7 +57,7 @@ gulp.task('browserSync', function() {
 })
 
 gulp.task('useref', function(){
-  return gulp.src('src/*.html', {base: "src/"})
+  return gulp.src(['src/*.html', 'src/views/*.html'], {base: "src/"})
     .pipe(useref())
 
     // Minifies only if it's a JavaScript file
