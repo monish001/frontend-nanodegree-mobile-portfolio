@@ -31,12 +31,12 @@ Some useful tips to help you get started:
 Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 ####Part 1: FIXES DONE FOR 'Optimize PageSpeed Insights score for index.html'
-- Minification of CSS using gulp-clean-css.
-- Concatination of CSS using gulp-useref.
-- Minification & Concatination of JS using gulp-uglify.
-- Minification of html using gulp-htmlmin.
-- Responsive images using gulp-responsive-images and SRCSET attribute in IMG tag.
-- Image compression using gulp-imagemin.
+- Minification of CSS using `gulp-clean-css`.
+- Concatination of CSS using `gulp-useref`.
+- Minification & Concatination of JS using `gulp-uglify`.
+- Minification of html using `gulp-htmlmin`.
+- Responsive images using `gulp-responsive-images` and SRCSET attribute in IMG tag.
+- Image compression using `gulp-imagemin`.
 - Compression of static resources using npm package `compression` for expressJS.
 - Scripts in all HTML pages moved to the bottom of the page.
 
