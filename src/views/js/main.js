@@ -453,7 +453,7 @@
 
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
-      var pizzaContainerEls = document.querySelectorAll(".randomPizzaContainer");
+      var pizzaContainerEls = document.getElementsByClassName("randomPizzaContainer");
       var newWidths = [];
       for(var i=pizzaContainerEls.length-1; i>=0; i--){
         var pizzaContainerEl = pizzaContainerEls[i];
@@ -530,7 +530,7 @@
     frame++;
     window.performance.mark("mark_start_frame");
 
-    var items = document.querySelectorAll('.mover');
+    var items = document.getElementsByClassName('mover');
     var newStyleLeftVals = _getLayoutVals(items);
     _updateStyles(items, newStyleLeftVals);  
 
