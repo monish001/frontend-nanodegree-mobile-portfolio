@@ -16,9 +16,11 @@ var lazypipe = require('lazypipe');
 var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var critical = require('critical').stream; // https://github.com/addyosmani/critical
+const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('css', function() {
-  return gulp.src(['src/css/*.css', 'src/views/css/*.css'], {base: "src/"})
+  return gulp.src(['src/css/*.css', 'src/views/css/*.css'], {base: "src/"})  
+    .pipe(autoprefixer())
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('dist'))
     .pipe(browserSync.reload({
