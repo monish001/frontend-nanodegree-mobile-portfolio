@@ -551,20 +551,25 @@
   });
 
   // Generates the sliding pizzas when the page loads.
+  // Fixed: Number of mover elems changed for fixed value of 200, to dynamically generated one using screen.height.
   document.addEventListener('DOMContentLoaded', function() {
-    var cols = 8;
-    var s = 256;
+    var nCols = 8;
+    var heightPerRow = 256;
     // Fixed: call to doctor.getElementById moved out of for loop
     var movingPizzas1El = document.getElementById("movingPizzas1");
+
+    var nRows = Math.floor((window.screen.height + (heightPerRow - 1) )/heightPerRow);
+
+    var nElems = nRows * nCols;
     // Fixed: moved creation of elem variable in initialisation of loop
-    for (var i = 0, elem; i < 200; i++) {
+    for (var i = 0, elem; i < nElems; i++) {
       elem = document.createElement('img');
       elem.className = 'mover';
       elem.src = "images/pizza.png";
       elem.style.height = "100px";
       elem.style.width = "73.333px";
-      elem.basicLeft = (i % cols) * s;
-      elem.style.top = (Math.floor(i / cols) * s) + 'px';
+      elem.basicLeft = (i % nCols) * heightPerRow;
+      elem.style.top = (Math.floor(i / nCols) * heightPerRow) + 'px';
       movingPizzas1El.appendChild(elem);
     }
     requestAnimationFrame(updatePositions);
