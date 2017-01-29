@@ -1,4 +1,5 @@
 (function(){
+  'use strict';
   /*
   Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
   jank-free at 60 frames per second.
@@ -404,16 +405,18 @@
     window.performance.mark("mark_start_resize");   // User Timing API function
 
     // Changes the value for the size of the pizza above the slider
+    // The document.getElementById("pizzaSize") Web API call is faster than document.querySelector("#pizzaSize")
     function changeSliderLabel(size) {
+      var pizzaSizeEl = document.getElementById('pizzaSize');
       switch(size) {
         case "1":
-          document.querySelector("#pizzaSize").innerHTML = "Small";
+          pizzaSizeEl.innerHTML = "Small";
           return;
         case "2":
-          document.querySelector("#pizzaSize").innerHTML = "Medium";
+          pizzaSizeEl.innerHTML = "Medium";
           return;
         case "3":
-          document.querySelector("#pizzaSize").innerHTML = "Large";
+          pizzaSizeEl.innerHTML = "Large";
           return;
         default:
           console.log("bug in changeSliderLabel");
@@ -425,7 +428,7 @@
     // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
     function determineDx (elem, size) {
       var oldWidth = elem.offsetWidth;
-      var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+      var windowWidth = document.getElementById("randomPizzas").offsetWidth;
       var oldSize = oldWidth / windowWidth;
 
       // Changes the slider value to a percent width
@@ -558,7 +561,7 @@
       elem.style.width = "73.333px";
       elem.basicLeft = (i % cols) * s;
       elem.style.top = (Math.floor(i / cols) * s) + 'px';
-      document.querySelector("#movingPizzas1").appendChild(elem);
+      document.getElementById("movingPizzas1").appendChild(elem);
     }
     requestAnimationFrame(updatePositions);
   });
