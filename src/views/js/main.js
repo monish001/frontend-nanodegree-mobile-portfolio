@@ -480,9 +480,10 @@
   window.performance.mark("mark_start_generating"); // collect timing data
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
+  // Fixed: Call to document.getElementById moved outside the for loop
+  var pizzasDivEl = document.getElementById("randomPizzas");
   for (var i = 2; i < 100; i++) {
-    var pizzasDiv = document.getElementById("randomPizzas");
-    pizzasDiv.appendChild(pizzaElementGenerator(i));
+    pizzasDivEl.appendChild(pizzaElementGenerator(i));
   }
 
   // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
@@ -553,15 +554,18 @@
   document.addEventListener('DOMContentLoaded', function() {
     var cols = 8;
     var s = 256;
-    for (var i = 0; i < 200; i++) {
-      var elem = document.createElement('img');
+    // Fixed: call to doctor.getElementById moved out of for loop
+    var movingPizzas1El = document.getElementById("movingPizzas1");
+    // Fixed: moved creation of elem variable in initialisation of loop
+    for (var i = 0, elem; i < 200; i++) {
+      elem = document.createElement('img');
       elem.className = 'mover';
       elem.src = "images/pizza.png";
       elem.style.height = "100px";
       elem.style.width = "73.333px";
       elem.basicLeft = (i % cols) * s;
       elem.style.top = (Math.floor(i / cols) * s) + 'px';
-      document.getElementById("movingPizzas1").appendChild(elem);
+      movingPizzas1El.appendChild(elem);
     }
     requestAnimationFrame(updatePositions);
   });
