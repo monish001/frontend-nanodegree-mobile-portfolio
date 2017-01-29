@@ -6,6 +6,37 @@
     <meta name="description" content=" FILL ME IN ">
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
+
+    <!--Fixed: moved to Head from body-->
+    <!-- Stylesheets and fonts -->
+    <link href="css/print.css" rel="stylesheet" media="print">
+
+    <!--Fixed: moved to Head from body-->
+    <!--build:css css/styles.min.css-->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!--Fixed: webfont loaded using JS instead of CSS link tag.
+           To prevent FOUT (Flash of Unstyled Text), script is loaded in the head.
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script type="text/javascript">
+      WebFont.load({
+        google: {
+          families: ['Open Sans:400,700']
+        }
+      });
+    </script>
+    <style type="text/css">
+      /* visibility is applied on html.wf-* instead of just h1 
+         unlike recommended here https://css-tricks.com/snippets/css/basics-of-google-font-api/
+         As there is hardly any h1 tag and FOUT is visible otherwise.
+       */
+      .wf-loading { visibility: hidden; }
+      .wf-active, .wf-inactive { 
+        visibility: visible; font-family: 'Cantarell'; 
+      }
+    </style>
   </head>
 
   <body>
@@ -63,14 +94,6 @@
         <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
       </footer>
     </div>
-
-    <!-- Stylesheets and fonts -->
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link href="css/print.css" rel="stylesheet" media="print">
-
-    <!--build:css css/styles.min.css-->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- endbuild -->
 
     <!-- Scripts -->
     <script>
