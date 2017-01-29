@@ -18,6 +18,9 @@ var gutil = require('gulp-util');
 var critical = require('critical').stream; // https://github.com/addyosmani/critical
 const autoprefixer = require('gulp-autoprefixer');
 
+/**
+ * Generate minified CSS files (Concatenation is handled in useref task below)
+ */
 gulp.task('css', function() {
   return gulp.src(['src/css/*.css', 'src/views/css/*.css'], {base: "src/"})  
     .pipe(autoprefixer())
@@ -72,6 +75,7 @@ gulp.task('useref', function(){
 
     // Minifies only if it's a CSS file
     .pipe(gulpIf('*.css', cssnano()))
+    .pipe(gulpIf('*.css', autoprefixer()))
 
     // Minifies only if it's a Html file
     .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true})))
