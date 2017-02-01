@@ -404,27 +404,6 @@
   var resizePizzas = function(size) {
     window.performance.mark("mark_start_resize");   // User Timing API function
 
-    // Changes the value for the size of the pizza above the slider
-    // The document.getElementById("pizzaSize") Web API call is faster than document.querySelector("#pizzaSize")
-    function changeSliderLabel(size) {
-      var pizzaSizeEl = document.getElementById('pizzaSize');
-      switch(size) {
-        case "1":
-          pizzaSizeEl.innerHTML = "Small";
-          return;
-        case "2":
-          pizzaSizeEl.innerHTML = "Medium";
-          return;
-        case "3":
-          pizzaSizeEl.innerHTML = "Large";
-          return;
-        default:
-          console.log("bug in changeSliderLabel");
-      }
-    }
-
-    changeSliderLabel(size);
-
     // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
     function determineDx (elem, size) {
       var oldWidth = elem.offsetWidth;
@@ -432,13 +411,20 @@
       var oldSize = oldWidth / windowWidth;
 
       // Changes the slider value to a percent width
+      // Changes the value for the size of the pizza above the slider
+      // Fixed: The document.getElementById("pizzaSize") Web API call is faster than document.querySelector("#pizzaSize")
+      // Fixed: changeSliderLabel() removed because of redundant switch case.
       function sizeSwitcher (size) {
+        var pizzaSizeEl = document.getElementById('pizzaSize');
         switch(size) {
           case "1":
+            pizzaSizeEl.innerHTML = "Small";
             return 0.25;
           case "2":
+            pizzaSizeEl.innerHTML = "Medium";
             return 0.3333;
           case "3":
+            pizzaSizeEl.innerHTML = "Large";
             return 0.5;
           default:
             console.log("bug in sizeSwitcher");
@@ -509,6 +495,11 @@
   // The following code for sliding background pizzas was pulled from Ilya's demo found at:
   // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
+  /**
+   * @summary 
+   * @param items is the list of DOM element having class 'mover'
+   * @returns
+   */
   function _getLayoutVals(items){
     var newStyleLeftVals = [];
     var bodyScrollTopBy1250 = (document.body.scrollTop / 1250);
@@ -520,6 +511,11 @@
     return newStyleLeftVals;
   }
 
+  /**
+   * @summary
+   * @param items
+   * @returns undefined
+   */
   function _updateStyles(items, styleLeftVals){
     for (var i = 0; i < items.length; i++) {
       items[i].style.left = styleLeftVals[i];
