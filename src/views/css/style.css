@@ -37,6 +37,8 @@ form {
   position: fixed;
   width: 256px;
   z-index: -1;
+  transform: translateZ(0); /* note: vendor prefixes should be taken care by gulp autoprefixer */
+  backface-visibility: hidden;
 }
 
 .randomPizzaContainer {

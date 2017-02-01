@@ -1,1 +1,1 @@
-function logCRP(){var o=window.performance.timing,n=o.domContentLoadedEventStart-o.domLoading,t=o.domComplete-o.domLoading,d=document.getElementById("crp-stats");d.textContent="DCL: "+n+"ms, onload: "+t+"ms"}window.addEventListener("load",function(o){logCRP()});
+!function(){function n(){var n=window.performance.timing,t=n.domContentLoadedEventStart-n.domLoading,o=n.domComplete-n.domLoading,d=document.getElementById("crp-stats");d.textContent="DCL: "+t+"ms, onload: "+o+"ms"}window.addEventListener("load",function(t){n()})}();

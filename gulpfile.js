@@ -14,10 +14,16 @@ var responsive = require('gulp-responsive-images');
 var imageTempDir = 'dist-image-temp-dir';
 var lazypipe = require('lazypipe');
 var sourcemaps = require('gulp-sourcemaps');
+var gutil = require('gulp-util');
+var critical = require('critical').stream; // https://github.com/addyosmani/critical
+const autoprefixer = require('gulp-autoprefixer');
 
-
+/**
+ * Generate minified CSS files (Concatenation is handled in useref task below)
+ */
 gulp.task('css', function() {
-  return gulp.src(['src/css/*.css', 'src/views/css/*.css'], {base: "src/"})
+  return gulp.src(['src/css/*.css', 'src/views/css/*.css'], {base: "src/"})  
+    .pipe(autoprefixer())
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('dist'))
     .pipe(browserSync.reload({
@@ -38,7 +44,7 @@ gulp.task('cache:clear', function (callback) {
 });
 
 gulp.task('build', function(callback){
-  runSequence(['clean:dist'], ['responsive-images', 'css'], ['images', 'useref'], ['clean:dist-image-temp-task']);
+  runSequence(['clean:dist'], ['responsive-images', 'css'], ['images', 'useref'], ['clean:dist-image-temp-task', 'critical']);
 })
 
 gulp.task('watch', function(){
@@ -69,11 +75,27 @@ gulp.task('useref', function(){
 
     // Minifies only if it's a CSS file
     .pipe(gulpIf('*.css', cssnano()))
+    .pipe(gulpIf('*.css', autoprefixer()))
 
     // Minifies only if it's a Html file
     .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true})))
 
     .pipe(gulp.dest('dist'))
+});
+
+// Generate & Inline Critical-path CSS
+gulp.task('critical', function () {
+  return gulp.src(['dist/*.html', 'dist/views/*.html'], {base: "dist/"})
+    .pipe(critical({
+      base: 'dist/', 
+      minify: true, // Minify critical-path CSS when inlining
+      timeout: 30000, // Complete Timeout for Operation
+      inline: true
+    }))
+    .on('error', function(err) { 
+      gutil.log(gutil.colors.red(err.message)); 
+    })
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('images', function(){
