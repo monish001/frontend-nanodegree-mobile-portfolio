@@ -405,51 +405,31 @@
     window.performance.mark("mark_start_resize");   // User Timing API function
 
     // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-    function determineDx (elem, size) {
-      var oldWidth = elem.offsetWidth;
-      var windowWidth = document.getElementById("randomPizzas").offsetWidth;
-      var oldSize = oldWidth / windowWidth;
-
-      // Changes the slider value to a percent width
-      // Changes the value for the size of the pizza above the slider
-      // Fixed: The document.getElementById("pizzaSize") Web API call is faster than document.querySelector("#pizzaSize")
-      // Fixed: changeSliderLabel() removed because of redundant switch case.
-      function sizeSwitcher (size) {
-        var pizzaSizeEl = document.getElementById('pizzaSize');
-        switch(size) {
-          case "1":
-            pizzaSizeEl.innerHTML = "Small";
-            return 0.25;
-          case "2":
-            pizzaSizeEl.innerHTML = "Medium";
-            return 0.3333;
-          case "3":
-            pizzaSizeEl.innerHTML = "Large";
-            return 0.5;
-          default:
-            console.log("bug in sizeSwitcher");
-        }
+    function determineSizeValue (size) {
+      var pizzaSizeEl = document.getElementById('pizzaSize');
+      switch(size) {
+        case "1":
+          pizzaSizeEl.innerHTML = "Small";
+          return 180.25;
+        case "2":
+          pizzaSizeEl.innerHTML = "Medium";
+          return 240.3093;
+        case "3":
+          pizzaSizeEl.innerHTML = "Large";
+          return 360.5;
+        default:
+          console.log("bug in determineSizeValue");
       }
-
-      var newSize = sizeSwitcher(size);
-      var dx = (newSize - oldSize) * windowWidth;
-
-      return dx;
     }
 
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
+      var newWidth = determineSizeValue(size) + 'px';
+
       var pizzaContainerEls = document.getElementsByClassName("randomPizzaContainer");
-      var newWidths = [];
       for(var i=pizzaContainerEls.length-1; i>=0; i--){
         var pizzaContainerEl = pizzaContainerEls[i];
-        var dx = determineDx(pizzaContainerEl, size);
-        var newwidth = (pizzaContainerEl.offsetWidth + dx) + 'px';
-        newWidths.push(newwidth);
-      }
-      for(var i=pizzaContainerEls.length-1; i>=0; i--){
-        var pizzaContainerEl = pizzaContainerEls[i];
-        pizzaContainerEl.style.width = newWidths[i];      
+        pizzaContainerEl.style.width = newWidth;      
       }
     }
 
