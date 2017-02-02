@@ -404,66 +404,32 @@
   var resizePizzas = function(size) {
     window.performance.mark("mark_start_resize");   // User Timing API function
 
-    // Changes the value for the size of the pizza above the slider
-    // The document.getElementById("pizzaSize") Web API call is faster than document.querySelector("#pizzaSize")
-    function changeSliderLabel(size) {
+    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
+    function determineSizeValue (size) {
       var pizzaSizeEl = document.getElementById('pizzaSize');
       switch(size) {
         case "1":
           pizzaSizeEl.innerHTML = "Small";
-          return;
+          return 180.25;
         case "2":
           pizzaSizeEl.innerHTML = "Medium";
-          return;
+          return 240.3093;
         case "3":
           pizzaSizeEl.innerHTML = "Large";
-          return;
+          return 360.5;
         default:
-          console.log("bug in changeSliderLabel");
+          console.log("bug in determineSizeValue");
       }
-    }
-
-    changeSliderLabel(size);
-
-    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-    function determineDx (elem, size) {
-      var oldWidth = elem.offsetWidth;
-      var windowWidth = document.getElementById("randomPizzas").offsetWidth;
-      var oldSize = oldWidth / windowWidth;
-
-      // Changes the slider value to a percent width
-      function sizeSwitcher (size) {
-        switch(size) {
-          case "1":
-            return 0.25;
-          case "2":
-            return 0.3333;
-          case "3":
-            return 0.5;
-          default:
-            console.log("bug in sizeSwitcher");
-        }
-      }
-
-      var newSize = sizeSwitcher(size);
-      var dx = (newSize - oldSize) * windowWidth;
-
-      return dx;
     }
 
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
+      var newWidth = determineSizeValue(size) + 'px';
+
       var pizzaContainerEls = document.getElementsByClassName("randomPizzaContainer");
-      var newWidths = [];
       for(var i=pizzaContainerEls.length-1; i>=0; i--){
         var pizzaContainerEl = pizzaContainerEls[i];
-        var dx = determineDx(pizzaContainerEl, size);
-        var newwidth = (pizzaContainerEl.offsetWidth + dx) + 'px';
-        newWidths.push(newwidth);
-      }
-      for(var i=pizzaContainerEls.length-1; i>=0; i--){
-        var pizzaContainerEl = pizzaContainerEls[i];
-        pizzaContainerEl.style.width = newWidths[i];      
+        pizzaContainerEl.style.width = newWidth;      
       }
     }
 
@@ -509,20 +475,36 @@
   // The following code for sliding background pizzas was pulled from Ilya's demo found at:
   // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
-  function _getLayoutVals(items){
+  /**
+   * @summary finds the new value of left property of the each of the given `elems`
+   * @param elems is the list of DOM elements
+   * @returns array of numbers in the order matching the order of elems. Each number represent the new value of CSS property left.
+   */
+  function _getLayoutVals(elems){
     var newStyleLeftVals = [];
     var bodyScrollTopBy1250 = (document.body.scrollTop / 1250);
-    for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin(bodyScrollTopBy1250 + (i % 5));
-      var styleLeftVal = items[i].basicLeft + 100 * phase + 'px';
+    var nPhases = 5;
+    var phaseValues = [];
+    for(var i=0; i<nPhases; i++){
+      phaseValues.push(Math.sin(bodyScrollTopBy1250 + (i % nPhases)))
+    }
+    for (var i = 0; i < elems.length; i++) {
+      var phase = phaseValues[i%nPhases];
+      var styleLeftVal = elems[i].basicLeft + 100 * phase + 'px';
       newStyleLeftVals.push(styleLeftVal);
-    }  
+    }
     return newStyleLeftVals;
   }
 
-  function _updateStyles(items, styleLeftVals){
-    for (var i = 0; i < items.length; i++) {
-      items[i].style.left = styleLeftVals[i];
+  /**
+   * @summary updates the style.left property of elems[i] with styleLeftVals[i]
+   * @param elems array of references to DOM elements.
+   * @param styleLeftVals
+   * @returns undefined
+   */
+  function _updateStyles(elems, styleLeftVals){
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].style.left = styleLeftVals[i];
     }
   }
 
@@ -562,7 +544,8 @@
 
     var nElems = nRows * nCols;
     // Fixed: moved creation of elem variable in initialisation of loop
-    for (var i = 0, elem; i < nElems; i++) {
+    var elem;
+    for (var i = 0; i < nElems; i++) {
       elem = document.createElement('img');
       elem.className = 'mover';
       elem.src = "images/pizza.png";
