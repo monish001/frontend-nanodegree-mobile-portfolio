@@ -53,7 +53,7 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 - `will-change:left` CSS property added to HTML element `#movingPizzas1`
 - In `changePizzaSizes(size)`, fixed FSL by computing all the layout calculations first and then applying all the styles later.
 
-####Part 2: FIXES DONE as per review comments
+#### FIXES DONE as per review comments
 - main.js code enclosed IIFE. Added `'use strict'`
 - `querySelector()` replaced with faster `getElementById()`
 - `querySelectorAll()` changed to faster `getElementsByClassName()`
@@ -63,6 +63,11 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 - Moved non-critical CSS out of critical rendering using gulp `critical` package
 - Css `autoprefixer` package added in build process
 - Added transform translateZ and backface-visibility hidden to the `.mover` elements
+
+#### FIXES DONE as per review comments 2
+- functions `changeSliderLabel()` and `sizeSwitcher()` merged.
+- `determineDx()` is now called just once instead of for each pizza DOM element.
+- Added function annotations `@summary`, `@params` and `@returns` to newly added functions `_getLayoutVals()` and `_updateStyles()`
 
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
