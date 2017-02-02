@@ -476,7 +476,7 @@
   // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
   /**
-   * @summary finds the new value of left property of the given elems
+   * @summary finds the new value of left property of the each of the given `elems`
    * @param elems is the list of DOM elements
    * @returns array of numbers in the order matching the order of elems. Each number represent the new value of CSS property left.
    */
