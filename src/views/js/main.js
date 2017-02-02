@@ -476,29 +476,35 @@
   // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
   /**
-   * @summary 
-   * @param items is the list of DOM element having class 'mover'
-   * @returns
+   * @summary finds the new value of left property of the given elems
+   * @param elems is the list of DOM elements
+   * @returns array of numbers in the order matching the order of elems. Each number represent the new value of CSS property left.
    */
-  function _getLayoutVals(items){
+  function _getLayoutVals(elems){
     var newStyleLeftVals = [];
     var bodyScrollTopBy1250 = (document.body.scrollTop / 1250);
-    for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin(bodyScrollTopBy1250 + (i % 5));
-      var styleLeftVal = items[i].basicLeft + 100 * phase + 'px';
+    var nPhases = 5;
+    var phaseValues = [];
+    for(var i=0; i<nPhases; i++){
+      phaseValues.push(Math.sin(bodyScrollTopBy1250 + (i % nPhases)))
+    }
+    for (var i = 0; i < elems.length; i++) {
+      var phase = phaseValues[i%nPhases];
+      var styleLeftVal = elems[i].basicLeft + 100 * phase + 'px';
       newStyleLeftVals.push(styleLeftVal);
-    }  
+    }
     return newStyleLeftVals;
   }
 
   /**
-   * @summary
-   * @param items
+   * @summary updates the style.left property of elems[i] with styleLeftVals[i]
+   * @param elems array of references to DOM elements.
+   * @param styleLeftVals
    * @returns undefined
    */
-  function _updateStyles(items, styleLeftVals){
-    for (var i = 0; i < items.length; i++) {
-      items[i].style.left = styleLeftVals[i];
+  function _updateStyles(elems, styleLeftVals){
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].style.left = styleLeftVals[i];
     }
   }
 
@@ -538,7 +544,8 @@
 
     var nElems = nRows * nCols;
     // Fixed: moved creation of elem variable in initialisation of loop
-    for (var i = 0, elem; i < nElems; i++) {
+    var elem;
+    for (var i = 0; i < nElems; i++) {
       elem = document.createElement('img');
       elem.className = 'mover';
       elem.src = "images/pizza.png";
