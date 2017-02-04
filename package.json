@@ -33,6 +33,7 @@
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.8",
+    "imagemin-jpegoptim": "https://registry.npmjs.org/imagemin-jpegoptim/-/imagemin-jpegoptim-5.0.0.tgz",
     "lazypipe": "^1.0.1",
     "run-sequence": "^1.2.2"
   },

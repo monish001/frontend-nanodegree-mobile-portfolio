@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
+var imageminJpegoptim = require('imagemin-jpegoptim');
 var cache = require('gulp-cache');
 var responsive = require('gulp-responsive-images');
 var imageTempDir = 'dist-image-temp-dir';
@@ -108,8 +109,9 @@ gulp.task('critical', function () {
 });
 
 gulp.task('images', function(){
+  let plugins = [imagemin.gifsicle(), imageminJpegoptim({max: 1}), imagemin.optipng(), imagemin.svgo()];
   return gulp.src(imageTempDir+'/**/*.+(png|jpg|gif|svg)', {base: imageTempDir+"/"})
-  .pipe(cache(imagemin({
+  .pipe(cache(imagemin(plugins, {
     interlaced: true
   })))
   .pipe(gulp.dest('dist'));
