@@ -69,6 +69,12 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 - `determineDx()` is now called just once instead of for each pizza DOM element.
 - Added function annotations `@summary`, `@params` and `@returns` to newly added functions `_getLayoutVals()` and `_updateStyles()`
 
+#### FIXES DONE as per review comments 3
+- `determineSizeValue()` changed to include percentages.
+- `phase` variable's calculation moved inline.
+- images optimised using `gulp-smushit`
+- Adding critical CSS manually and disabled critical gulp task
+
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
 * [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
