@@ -18,6 +18,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var critical = require('critical').stream; // https://github.com/addyosmani/critical
 const autoprefixer = require('gulp-autoprefixer');
+var smushit = require('gulp-smushit');
 
 /**
  * Generate minified CSS files (Concatenation is handled in useref task below)
@@ -108,13 +109,19 @@ gulp.task('critical', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('images', function(){
-  let plugins = [imagemin.gifsicle(), imageminJpegoptim({max: 1}), imagemin.optipng(), imagemin.svgo()];
+gulp.task('images', function() {
   return gulp.src(imageTempDir+'/**/*.+(png|jpg|gif|svg)', {base: imageTempDir+"/"})
-  .pipe(cache(imagemin(plugins, {
-    interlaced: true
+  .pipe(cache(smushit({
+      verbose: true
   })))
   .pipe(gulp.dest('dist'));
+  
+  // let plugins = [imagemin.gifsicle(), imageminJpegoptim({max: 1}), imagemin.optipng(), imagemin.svgo()];
+  // return gulp.src(imageTempDir+'/**/*.+(png|jpg|gif|svg)', {base: imageTempDir+"/"})
+  // .pipe(cache(imagemin(plugins, {
+  //   interlaced: true
+  // })))
+  // .pipe(gulp.dest('dist'));
 });
 
 gulp.task('responsive-images', function(){
