@@ -86,15 +86,24 @@ gulp.task('useref', function(){
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
   return gulp.src(['dist/*.html', 'dist/views/*.html'], {base: "dist/"})
-    .pipe(critical({
-      base: 'dist/', 
-      minify: true, // Minify critical-path CSS when inlining
-      timeout: 30000, // Complete Timeout for Operation
-      inline: true
-    }))
-    .on('error', function(err) { 
-      gutil.log(gutil.colors.red(err.message)); 
-    })
+    // .pipe(critical({
+    //   // width: 1300, // Viewport width
+    //   // height: 20, // Viewport height
+    //   // dimensions: [{
+    //   //     height: 200,
+    //   //     width: 500
+    //   // }, {
+    //   //     height: 900,
+    //   //     width: 1200
+    //   // }],
+    //   base: 'dist/', 
+    //   minify: true, // Minify critical-path CSS when inlining
+    //   timeout: 30000, // Complete Timeout for Operation
+    //   inline: true
+    // }))
+    // .on('error', function(err) { 
+    //   gutil.log(gutil.colors.red(err.message)); 
+    // })
     .pipe(gulp.dest('dist'));
 });
 
