@@ -10,7 +10,17 @@ var users = require('./src/routes/users');
 
 var compression = require('compression');
 var app = express();
-app.use(compression())
+app.use(compression({
+  // Enable image compression https://github.com/expressjs/compression/issues/82
+  // filter: function shouldCompress(req, res) {
+  //   if (/^image\//.test(res.getHeader('Content-Type'))) {
+  //     // compress any image format
+  //     return true;
+  //   }
+  //   // fallback to standard filter function
+  //   return compression.filter(req, res);
+  // }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'dist/views'));

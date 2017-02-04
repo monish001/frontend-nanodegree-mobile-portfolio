@@ -410,13 +410,13 @@
       switch(size) {
         case "1":
           pizzaSizeEl.innerHTML = "Small";
-          return 180.25;
+          return 25;
         case "2":
           pizzaSizeEl.innerHTML = "Medium";
-          return 240.3093;
+          return 33.33;
         case "3":
           pizzaSizeEl.innerHTML = "Large";
-          return 360.5;
+          return 50;
         default:
           console.log("bug in determineSizeValue");
       }
@@ -424,7 +424,7 @@
 
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
-      var newWidth = determineSizeValue(size) + 'px';
+      var newWidth = determineSizeValue(size) + '%';
 
       var pizzaContainerEls = document.getElementsByClassName("randomPizzaContainer");
       for(var i=pizzaContainerEls.length-1; i>=0; i--){
@@ -489,8 +489,7 @@
       phaseValues.push(Math.sin(bodyScrollTopBy1250 + (i % nPhases)))
     }
     for (var i = 0; i < elems.length; i++) {
-      var phase = phaseValues[i%nPhases];
-      var styleLeftVal = elems[i].basicLeft + 100 * phase + 'px';
+      var styleLeftVal = elems[i].basicLeft + 100 * phaseValues[i%nPhases] + 'px';
       newStyleLeftVals.push(styleLeftVal);
     }
     return newStyleLeftVals;

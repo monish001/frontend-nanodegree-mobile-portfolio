@@ -6,36 +6,8 @@
     <meta name="description" content=" FILL ME IN ">
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
-
-    <!--Fixed: moved to Head from body-->
-    <!-- Stylesheets and fonts -->
-    <link href="css/print.css" rel="stylesheet" media="print">
-
-    <!--Fixed: moved to Head from body-->
-    <!--build:css css/styles.min.css-->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- endbuild -->
-
-    <!--Fixed: webfont loaded using JS instead of CSS link tag.
-           To prevent FOUT (Flash of Unstyled Text), script is loaded in the head.
-    -->
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script type="text/javascript">
-      WebFont.load({
-        google: {
-          families: ['Open Sans:400,700']
-        }
-      });
-    </script>
     <style type="text/css">
-      /* visibility is applied on html.wf-* instead of just h1 
-         unlike recommended here https://css-tricks.com/snippets/css/basics-of-google-font-api/
-         As there is hardly any h1 tag and FOUT is visible otherwise.
-       */
-      .wf-loading { visibility: hidden; }
-      .wf-active, .wf-inactive { 
-        visibility: visible; font-family: 'Cantarell'; 
-      }
+      .hero,footer{border-top:1px solid #ccc}footer span,li p{font-style:italic}html{font-size:100%;overflow-y:scroll;-ms-text-size-adjust:100%;-webkit-text-size-adjust:none}body{margin:0;font-size:14px;line-height:1.61;font-weight:400;font-family:Open Sans,sans-serif;color:#333;background:#fff}header p,strong{font-weight:700}a{color:#12c}a:visited{color:#61c}ul{margin:1em 0;padding:0 0 0 20px}img{border:0;max-width:100%}.container,footer,header{max-width:45em;margin:0 auto}header{padding:0 .5em;color:#c90b0b}header img{border-radius:40px;float:left}header p{font-size:1.5em;padding-left:4em}header p span{font-size:.8em;font-weight:400}.hero{padding:2em;background-color:#f8f8f8;font-size:1.2em;border-bottom:1px solid #ccc}.content{padding:1em}.content li{list-style-type:none;font-size:1.1em}li img{float:left;padding-right:1em}li p{font-size:.9em}footer{padding:0 .5em}footer span{float:right}@media only screen and (max-width:480px){body{font-size:12px}header p{padding-left:4.5em}}
     </style>
   </head>
 
@@ -98,6 +70,37 @@
         <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
       </footer>
     </div>
+
+    <!--Fixed: moved again to body to head. C...-->
+    <!-- Stylesheets and fonts -->
+    <link href="css/print.css" rel="stylesheet" media="print">
+
+    <!--Fixed: moved to Head from body-->
+    <!--build:css css/styles.min.css-->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!--Fixed: webfont loaded using JS instead of CSS link tag.
+           To prevent FOUT (Flash of Unstyled Text), script is loaded in the head.
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script type="text/javascript">
+      WebFont.load({
+        google: {
+          families: ['Open Sans:400,700']
+        }
+      });
+    </script>
+    <style type="text/css">
+      /* visibility is applied on html.wf-* instead of just h1 
+         unlike recommended here https://css-tricks.com/snippets/css/basics-of-google-font-api/
+         As there is hardly any h1 tag and FOUT is visible otherwise.
+       */
+      .wf-loading { visibility: hidden; }
+      .wf-active, .wf-inactive { 
+        visibility: visible; font-family: 'Cantarell'; 
+      }
+    </style>
 
     <!-- Scripts -->
     <script>

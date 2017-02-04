@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
+var imageminJpegoptim = require('imagemin-jpegoptim');
 var cache = require('gulp-cache');
 var responsive = require('gulp-responsive-images');
 var imageTempDir = 'dist-image-temp-dir';
@@ -17,6 +18,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var critical = require('critical').stream; // https://github.com/addyosmani/critical
 const autoprefixer = require('gulp-autoprefixer');
+var smushit = require('gulp-smushit');
 
 /**
  * Generate minified CSS files (Concatenation is handled in useref task below)
@@ -86,24 +88,40 @@ gulp.task('useref', function(){
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
   return gulp.src(['dist/*.html', 'dist/views/*.html'], {base: "dist/"})
-    .pipe(critical({
-      base: 'dist/', 
-      minify: true, // Minify critical-path CSS when inlining
-      timeout: 30000, // Complete Timeout for Operation
-      inline: true
-    }))
-    .on('error', function(err) { 
-      gutil.log(gutil.colors.red(err.message)); 
-    })
+    // .pipe(critical({
+    //   // width: 1300, // Viewport width
+    //   // height: 20, // Viewport height
+    //   // dimensions: [{
+    //   //     height: 200,
+    //   //     width: 500
+    //   // }, {
+    //   //     height: 900,
+    //   //     width: 1200
+    //   // }],
+    //   base: 'dist/', 
+    //   minify: true, // Minify critical-path CSS when inlining
+    //   timeout: 30000, // Complete Timeout for Operation
+    //   inline: true
+    // }))
+    // .on('error', function(err) { 
+    //   gutil.log(gutil.colors.red(err.message)); 
+    // })
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('images', function(){
+gulp.task('images', function() {
   return gulp.src(imageTempDir+'/**/*.+(png|jpg|gif|svg)', {base: imageTempDir+"/"})
-  .pipe(cache(imagemin({
-    interlaced: true
+  .pipe(cache(smushit({
+      verbose: true
   })))
   .pipe(gulp.dest('dist'));
+  
+  // let plugins = [imagemin.gifsicle(), imageminJpegoptim({max: 1}), imagemin.optipng(), imagemin.svgo()];
+  // return gulp.src(imageTempDir+'/**/*.+(png|jpg|gif|svg)', {base: imageTempDir+"/"})
+  // .pipe(cache(imagemin(plugins, {
+  //   interlaced: true
+  // })))
+  // .pipe(gulp.dest('dist'));
 });
 
 gulp.task('responsive-images', function(){
