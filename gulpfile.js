@@ -19,6 +19,12 @@ var gutil = require('gulp-util');
 var critical = require('critical').stream; // https://github.com/addyosmani/critical
 const autoprefixer = require('gulp-autoprefixer');
 var smushit = require('gulp-smushit');
+var ghPages = require('gulp-gh-pages');
+ 
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
 
 /**
  * Generate minified CSS files (Concatenation is handled in useref task below)
@@ -129,16 +135,12 @@ gulp.task('responsive-images', function(){
   .pipe(responsive({
     '**/*.*': [{},{
       width: 100,
+      quality: 50,
       suffix: '-100'
     }, {
       width: 100 * 2,
+      quality: 30,
       suffix: '-100-2x'
-    }, {
-      width: 100 * 3,
-      suffix: '-100-3x'
-    }, {
-      width: 100 * 4,
-      suffix: '-100-4x'
     }]
   }))
   .pipe(gulp.dest(imageTempDir))
