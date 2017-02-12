@@ -71,10 +71,6 @@
       </footer>
     </div>
 
-    <!--Fixed: moved again to body to head. C...-->
-    <!-- Stylesheets and fonts -->
-    <link href="css/print.css" rel="stylesheet" media="print">
-
     <!--Fixed: webfont loaded using JS instead of CSS link tag.
            To prevent FOUT (Flash of Unstyled Text), script is loaded in the head.
     -->
@@ -111,5 +107,19 @@
     <script async src="js/perfmatters.js"></script>
     <!-- endbuild -->
 
+    <!--Fixed: moved again to body to head. C...-->
+    <!-- Stylesheets and fonts -->
+    <style>
+      @media print {
+        * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
+        a, a:visited { color: #444 !important; text-decoration: underline; }
+        a[href]:after { content: " (" attr(href) ")"; }
+        tr, img { page-break-inside: avoid; }
+        img { max-width: 100% !important; }
+        @page { margin: 0.5cm; }
+        p, h2, h3 { orphans: 3; widows: 3; }
+        h2, h3{ page-break-after: avoid; }
+      }
+    </style>
   </body>
 </html>
