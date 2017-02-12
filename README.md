@@ -8,14 +8,14 @@ To get started, check out the repository and inspect the code.
 
 ####Part 1: Optimize PageSpeed Insights score for index.html
 
-Some useful tips to help you get started:
+Some useful tips to help you get started, follow below steps. Or simply check http://useful-calendar.surge.sh/ :
 
 1. Check out the repository
 1. To inspect the site on your phone, you can run a local server
 
   ```bash
   $> cd /path/to/your-project-folder
-  $> npm run start
+  $> node ./bin/www
   ```
 
 1. Open a browser and visit localhost:8080
@@ -70,10 +70,12 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 - Added function annotations `@summary`, `@params` and `@returns` to newly added functions `_getLayoutVals()` and `_updateStyles()`
 
 #### FIXES DONE as per review comments 3
-- `determineSizeValue()` changed to include percentages.
+- `determineSizeValue()` changed to include percentages. (The actual sizes have varied with this change but assumption is that this change is not important for overall webpage experience.)
 - `phase` variable's calculation moved inline.
-- images optimised using `gulp-smushit`
-- Adding critical CSS manually and disabled critical gulp task
+- images optimised using `gulp-smushit`.
+- Adding critical CSS manually and disabled critical gulp task.
+- Inlined the print.css in bottom of the main page to fix 'Priortise visible content'.
+- Inline the webfont.js in the main page to fix 'Priortise visible content'.
 
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
