@@ -77,6 +77,10 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 - Inlined the print.css in bottom of the main page to fix 'Priortise visible content'.
 - Inline the webfont.js in the main page to fix 'Priortise visible content'.
 
+#### FIXES DONE as per review comments 3
+- CSS minification enabled in the gulp useref task for the inline CSS in the HTML files. Also, CSS formatted properly in the index.html
+- Removed repeated DOM reference happening in the loop by using documentFragment
+
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
 * [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")

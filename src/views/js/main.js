@@ -447,10 +447,12 @@
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
   // Fixed: Call to document.getElementById moved outside the for loop
-  var pizzasDivEl = document.getElementById("randomPizzas");
+  // Fixed: Removed repeated DOM reference happening in the loop by using documentFragment
+  var pizzaElsFragment = document.createDocumentFragment();
   for (var i = 2; i < 100; i++) {
-    pizzasDivEl.appendChild(pizzaElementGenerator(i));
+    pizzaElsFragment.appendChild(pizzaElementGenerator(i));
   }
+  pizzasDivEl.appendChild(pizzaElsFragment);
 
   // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
   window.performance.mark("mark_end_generating");

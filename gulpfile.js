@@ -86,7 +86,13 @@ gulp.task('useref', function(){
     .pipe(gulpIf('*.css', autoprefixer()))
 
     // Minifies only if it's a Html file
-    .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true})))
+    .pipe(gulpIf('*.html', htmlmin({
+      collapseWhitespace: true,
+      minifyCSS: true,
+      quoteCharacter: '\'',
+      removeComments: true,
+      removeAttributeQuotes: true
+    })))
 
     .pipe(gulp.dest('dist'))
 });
